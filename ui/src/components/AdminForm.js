@@ -25,7 +25,7 @@ export class AdminForm extends Component {
 
     // Add new resource category
     addResourceCat(resourceType, description) {
-        let newResourceCat = { resouce_type: resourceType, description: description };
+        let newResourceCat = { resourceType: resourceType, catDescription: description };
         console.log(newResourceCat);
         fetch(`${API_URL}/admin`, {
             method: 'post',

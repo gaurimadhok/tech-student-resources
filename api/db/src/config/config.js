@@ -7,7 +7,13 @@ module.exports = {
     "password": null,
     "database": "tech_student_resources",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+
+    // Use a different storage type. Default: sequelize
+    "migrationStorage": "json",
+
+    // Use a different file name. Default: sequelize-meta.json
+    "migrationStoragePath": "migrationHistory.json",
   },
   "test": {
     "username": "root",

@@ -12,6 +12,7 @@ class ResourceCatService {
     static async addResourceCategory(newResourceCat) {
         try {
             console.log("in resource service try");
+            console.log(newResourceCat);
             return await database.ResourceCat.create(newResourceCat);
         } catch (error) {
             console.log("in resource service catch");
@@ -22,11 +23,11 @@ class ResourceCatService {
     static async updateResourceCategory(id, updateResourceCat) {
         try {
             const resourceCatToUpdate = await database.ResourceCat.findOne({
-            where: { id: Number(id) }
+            where: { catID: Number(id) }
             });
 
             if (resourceCatToUpdate) {
-                await database.ResourceCat.update(updateResourceCat, { where: { id: Number(id) } });
+                await database.ResourceCat.update(updateResourceCat, { where: { catID: Number(id) } });
 
                 return updateResourceCat;
             }
@@ -39,7 +40,7 @@ class ResourceCatService {
     static async getAResourceCategory(id) {
         try {
             const theResourceCat = await database.ResourceCat.findOne({
-            where: { id: Number(id) }
+            where: { catID: Number(id) }
             });
 
             return theResourceCat;
@@ -50,11 +51,11 @@ class ResourceCatService {
 
     static async deleteResourceCategory(id) {
         try {
-            const resourceCatToDelete = await database.ResourceCat.findOne({ where: { id: Number(id) } });
+            const resourceCatToDelete = await database.ResourceCat.findOne({ where: { catID: Number(id) } });
 
             if (resourceCatToDelete) {
             const deletedResourceCat = await database.ResourceCat.destroy({
-                where: { id: Number(id) }
+                where: { catID: Number(id) }
             });
             return deletedResourceCat;
             }

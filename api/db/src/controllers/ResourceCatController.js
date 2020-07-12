@@ -21,12 +21,12 @@ class ResourceCatController {
 
   static async addResourceCategory(req, res) {
     console.log('in addResourceCategory');
-    if (!req.body.resource_type || !req.body.sub_cat || !req.body.description) {
+    if (!req.body.resourceType) {
       response.setError(400, 'Please provide complete details');
       return response.send(res);
     }
     const newResourceCategory = req.body;
-    console.log(newResource);
+    console.log(newResourceCategory);
     try {
       const createdResourceCategory = await ResourceCatService.addResourceCategory(newResourceCategory);
       response.setSuccess(201, 'Resource Added!', createdResourceCategory);
