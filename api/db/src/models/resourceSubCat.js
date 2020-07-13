@@ -18,7 +18,9 @@ module.exports = (sequelize, DataTypes) => {
           key: 'catID'
         },
         field: 'cat_id'
-      }
+      },
+    }, {
+      timestamps: false
     });
     ResourceSubCat.associate = function(models) {
       models.ResourceSubCat.belongsTo(models.ResourceCat, { foreignKey: 'cat_id' });
