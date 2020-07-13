@@ -24,6 +24,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('resource-cats');
+    await queryInterface.dropTable('ResourceCats');
   }
 };

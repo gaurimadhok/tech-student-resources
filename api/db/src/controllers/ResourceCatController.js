@@ -58,7 +58,7 @@ class ResourceCatController {
     }
   }
 
-  static async getAResourceCateogry(req, res) {
+  static async getAResourceCategory(req, res) {
     const { id } = req.params;
 
     if (!Number(id)) {

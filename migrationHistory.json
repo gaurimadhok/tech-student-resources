@@ -1,3 +1,6 @@
 [
-  "20200711225703-create-resource-cat.js"
+  "20200711225703-create-resource-cat.js",
+  "20200712200509-create-resource-subcat.js",
+  "20200712201203-create-resource-content.js",
+  "20200712201457-create-extra-content-description.js"
 ]
