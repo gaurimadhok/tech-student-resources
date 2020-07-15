@@ -1,5 +1,6 @@
 import ResourceContentService from '../services/ResourceContentService';
 import Responses from '../utils/responses';
+import ResourceSubCatService from '../services/ResourceSubCatService';
 
 const response = new Responses();
 
@@ -28,7 +29,15 @@ class ResourceContentController {
     const newResourceContent = req.body;
     console.log(newResourceContent);
     try {
-      const createdResourceContent = await ResourceContentService.addResourceContent(newResourceContent);
+      let doesContentExist = await ResourceContentService.doesContentExist(newResourceContent['link']);
+      if(doesContentExist) {
+        response.setSuccess(201, 'Resource Content exists.');
+        return response.send(res);
+      }
+      let subCatID = await ResourceSubCatService.getAResourceSubCategoryID(newResourceContent['subCatTitle']);
+      const actualNewResource = { 'title': newResourceContent['title'], 'contentDescription': newResourceContent['contentDescription'], 
+                                  'link': newResourceContent['link'], 'image': newResourceContent['image'], 'subCatID': subCatID};
+      const createdResourceContent = await ResourceContentService.addResourceContent(actualNewResource);
       response.setSuccess(201, 'Resource Content Added!', createdResourceContent);
       return response.send(res);
     } catch (error) { 

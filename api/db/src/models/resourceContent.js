@@ -33,7 +33,10 @@ module.exports = (sequelize, DataTypes) => {
           key: 'subCatID'
         },
         field: 'sub_cat_id'
-      }
+      }, 
+    }, {
+      timestamps: false,
+      freezeTableName: true
     });
     ResourceContent.associate = function(models) {
       models.ResourceContent.belongsTo(models.ResourceSubCat, { foreignKey: 'sub_cat_id' });

@@ -2,6 +2,7 @@ import config from 'dotenv';
 import express from 'express'
 import resourceCatRoutes from './db/src/routes/ResourceCatRoutes';
 import resourceSubCatRoutes from './db/src/routes/ResourceSubCatRoutes';
+import adminRoutes from './db/src/routes/AdminRoutes';
 import cors from 'cors';
 
 config.config();
@@ -14,8 +15,10 @@ app.use(cors());
 
 const port = process.env.PORT || 8080;
 console.log('Right before using resourceCatRoutes');
-app.use('/api/v1/resources', resourceCatRoutes);
-app.use('/api/v1/resourcesub', resourceSubCatRoutes);
+// app.use('/api/v1/resources', resourceCatRoutes);
+app.use('/api/v1/admin', adminRoutes);
+
+//app.use('/api/v1/resourcesub', resourceSubCatRoutes);
 
 app.get('/admin', (req, res) => {
     res.status(200).send('Welcome to the admin route');

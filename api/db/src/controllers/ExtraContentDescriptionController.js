@@ -22,6 +22,7 @@ class ExtraContentDescriptionController {
   static async addExtraContentDescription(req, res) {
     console.log('in addExtraContentDescription');
     if (!req.body.extraDescription) {
+      console.log('in extraContentDescription if statement');
       response.setError(400, 'Please provide complete details');
       return response.send(res);
     }

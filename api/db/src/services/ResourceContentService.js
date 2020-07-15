@@ -63,6 +63,18 @@ class ResourceContentService {
             throw error;
         }
     }   
+
+    static async doesContentExist(inputContent) {
+        try {
+            let returnedContent = await database.ResourceContent.findOne({ where: { link: inputContent}});
+            if(returnedContent == null) {
+                return false;
+            }
+            return true;
+        } catch(error) {
+            throw error;
+        }
+    }
 }
 
 export default ResourceContentService;

@@ -18,7 +18,9 @@ module.exports = (sequelize, DataTypes) => {
           key: 'contentID'
         },
         field: 'content_id'
-      }
+      },
+    }, {
+      timestamps: false
     });
     ExtraContentDescription.associate = function(models) {
       models.ExtraContentDescription.belongsTo(models.ResourceContent, { foreignKey: 'content_id' });

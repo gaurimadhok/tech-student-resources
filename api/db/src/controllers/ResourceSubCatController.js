@@ -1,5 +1,7 @@
 import ResourceSubCatService from '../services/ResourceSubCatService';
+import ResourceCatService from '../services/ResourceCatService';
 import Responses from '../utils/responses';
+import ResourceContentService from '../services/ResourceContentService';
 
 const response = new Responses();
 
@@ -20,15 +22,22 @@ class ResourceSubCatController {
   }
 
   static async addResourceSubCategory(req, res) {
-    console.log('in addResourceSubCategory');
+    //console.log('in addResourceSubCategory');
     if (!req.body.subCatTitle) {
       response.setError(400, 'Please provide complete details');
       return response.send(res);
     }
     const newResourceSubCategory = req.body;
-    console.log(newResourceSubCategory);
+    //console.log(newResourceSubCategory);
     try {
-      const createdResourceSubCategory = await ResourceSubCatService.addResourceSubCategory(newResourceSubCategory);
+      let doesSubCatExist = await ResourceSubCatService.doesSubCatExist(newResourceSubCategory['subCatTitle']);
+      if(doesSubCatExist) {
+        response.setSuccess(201, 'Resource SubCat exists.');
+        return response.send(res);
+      }
+      let catID = await ResourceCatService.getAResourceCategoryID(newResourceSubCategory['resourceType']);
+      const actualNewResource = { 'subCatTitle': newResourceSubCategory['subCatTitle'], 'catID': catID };
+      const createdResourceSubCategory = await ResourceSubCatService.addResourceSubCategory(actualNewResource);
       response.setSuccess(201, 'Resource SubCat Added!', createdResourceSubCategory);
       return response.send(res);
     } catch (error) {

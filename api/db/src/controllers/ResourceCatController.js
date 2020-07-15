@@ -28,6 +28,11 @@ class ResourceCatController {
     const newResourceCategory = req.body;
     console.log(newResourceCategory);
     try {
+      let doesResourceTypeExist = await ResourceCatService.doesCatExist(newResourceCategory['resourceType']);
+      if(doesResourceTypeExist) {
+        response.setSuccess(201, 'ResourceCat already exists.');
+        return response.send(res);
+      }
       const createdResourceCategory = await ResourceCatService.addResourceCategory(newResourceCategory);
       response.setSuccess(201, 'Resource Added!', createdResourceCategory);
       return response.send(res);

@@ -63,7 +63,7 @@ export class Confirm extends Component {
                         style = {styles.button} 
                         onClick = { () => {
                             // this.continue;
-                            this.props.categoryCallBacks(resourceCat, null);
+                            this.props.categoryCallBacks(resourceCat, null, resourceSubCat, rcTitle, rcDescription, rcLink, rcImage);
                         }}
                     />
                 </React.Fragment>

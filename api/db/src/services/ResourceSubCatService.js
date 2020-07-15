@@ -48,6 +48,19 @@ class ResourceSubCatService {
         }
     }
 
+    static async getAResourceSubCategoryID(subCatTitle) {
+        try {
+            const resourceSubCatID = await database.ResourceSubCat.findOne({
+                attribute: 'subCatID',
+                where: { subCatTitle: subCatTitle }
+            });
+
+            return resourceSubCatID['dataValues']['subCatID'];
+        } catch (error) {
+            throw error;
+        }
+    }
+
     static async deleteResourceSubCategory(id) {
         try {
             const resourceSubCatToDelete = await database.ResourceSubCat.findOne({ where: { subCatID: Number(id) } });
@@ -63,6 +76,18 @@ class ResourceSubCatService {
             throw error;
         }
     }   
+
+    static async doesSubCatExist(inputSubCat) {
+        try {
+            let returnedSubCat = await database.ResourceSubCat.findOne({ where: { subCatTitle: inputSubCat}});
+            if(returnedSubCat == null) {
+                return false;
+            }
+            return true;
+        } catch(error) {
+            throw error;
+        }
+    }
 }
 
 export default ResourceSubCatService;

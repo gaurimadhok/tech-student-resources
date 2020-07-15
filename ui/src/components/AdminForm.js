@@ -5,7 +5,7 @@ import ContentForm from './ContentForm';
 import Confirm from './Confirm';
 import Success from './Success';
 
-const API_URL = 'http://localhost:8080/api/v1/resources';
+const API_URL = 'http://localhost:8080/api/v1/admin';
 const API_HEADERS = {
     'Content-Type' : 'application/json',
     Authorization: 'unneccessary for local server'
@@ -27,7 +27,7 @@ export class AdminForm extends Component {
     addResourceCat(resourceType, description) {
         let newResourceCat = { resourceType: resourceType, catDescription: description };
         console.log(newResourceCat);
-        fetch(`${API_URL}/admin`, {
+        fetch(`${API_URL}/resourceCat`, {
             method: 'post',
             headers: API_HEADERS,
             body: JSON.stringify(newResourceCat)
@@ -38,6 +38,60 @@ export class AdminForm extends Component {
             else throw new Error("server response wasn't ok");
         })
     }
+
+    addResourceSubCat(subCatTitle, resourceType) {
+        let newResourceSubCat = { subCatTitle: subCatTitle, resourceType: resourceType };
+        //console.log(newResourceSubCat);
+        fetch(`${API_URL}/resourceSubCat`, {
+            method: 'post',
+            headers: API_HEADERS,
+            body: JSON.stringify(newResourceSubCat)
+        })
+        .then((response) => {
+            console.log(response);
+            if(response.ok) return response.json();
+            else throw new Error("server response wasn't ok");
+        })
+    }
+
+    addResourceContent(title, contentDescription, link, image, subCatTitle) {
+        let newResourceContent = { title: title, contentDescription: contentDescription, link: link, image: image, subCatTitle: subCatTitle };
+        console.log(newResourceContent);
+        fetch(`${API_URL}/resourceContent`, {
+            method: 'post',
+            headers: API_HEADERS,
+            body: JSON.stringify(newResourceContent)
+        })
+        .then((response) => {
+            console.log(response);
+            if(response.ok) return response.json();
+            else throw new Error("server response wasn't ok");
+        })
+    }
+
+    addExtraContentDescription(extraDescription) {
+        let newExtraContentDescription = { extraDescription: extraDescription };
+        console.log(newExtraContentDescription);
+        fetch(`${API_URL}/extraContentDescription`, {
+            method: 'post',
+            headers: API_HEADERS,
+            body: JSON.stringify(newExtraContentDescription)
+        })
+        .then((response) => {
+            console.log(response);
+            if(response.ok) return response.json();
+            else throw new Error("server response wasn't ok");
+        })
+    }
+
+    submitEvent(resourceType, description, subCatTitle, title, contentDescription, link, image, extraDescription) {
+        this.addResourceCat(resourceType, description);
+        this.addResourceSubCat(subCatTitle, resourceType);
+        this.addResourceContent(title, contentDescription, link, image, subCatTitle);
+        //this.addExtraContentDescription(extraDescription);
+    }
+
+
 
     // Proceed to next step in form
     nextStep = () => {
@@ -87,7 +141,7 @@ export class AdminForm extends Component {
                             values = {values}
                             nextStep = {this.nextStep}
                             prevStep = {this.prevStep} 
-                            categoryCallBacks = {this.addResourceCat.bind(this)}
+                            categoryCallBacks = {this.submitEvent.bind(this)}
                         />
                     </div>
                 
